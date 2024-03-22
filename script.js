@@ -75,8 +75,15 @@ const setOutput = (solutions) => {
         const i = getInputValues();
         const gcd = extendedGCD(i[0], i[2])[0];
         const results = calculateClassOfResidues(solutions, i, gcd);
+        const modulus = getInputValues()[2];
+        const individualResults = solutions.map(sol => "x ≡ " + sol + "(mod" + modulus + ").").join("\n");
 
-        $("textarea").val("x ≡ " + solutions + "(mod" + getInputValues()[2] + ").\n" + "Загальне рішення: " + solutions[0] + " + " + i[2] / gcd + "n.\n" + "Клас лишків: {..., " + results.join(', ') + ", ...}.");
+        $("textarea").val(individualResults + "\nЗагальне рішення: " + solutions[0] + " + " + i[2] / gcd + "n.\n" + "Клас лишків: {..., " + results.join(', ') + ", ...}.");
+
+        const textarea = $("textarea")[0];
+        textarea.style.height = "";
+        textarea.style.height = textarea.scrollHeight + "px";
+        textarea.style.overflow = "hidden";
     }
 };
 
